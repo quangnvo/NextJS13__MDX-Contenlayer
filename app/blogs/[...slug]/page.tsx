@@ -41,6 +41,7 @@ export default async function BlogPage({ params }: BlogProps) {
 
     return (
         <>
+
             <article className="py-6 prose dark:prose-invert max-w-7xl mx-auto px-5">
 
                 {/* Blog title */}
