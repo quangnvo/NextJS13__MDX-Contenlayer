@@ -14,4 +14,4 @@ npm run dev
 `date-fns`
 `next-contentlayer`
 `nextjs-toploader`
-
+`@tailwindcss/typography`
