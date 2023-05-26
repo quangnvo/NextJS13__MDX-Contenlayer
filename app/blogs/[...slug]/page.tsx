@@ -31,6 +31,15 @@ export async function generateMetadata({ params }: BlogProps): Promise<Metadata>
     }
 }
 
+//  ---------- Generate staticparams ----------
+export async function generateStaticParams(): Promise<BlogProps["params"][]> {
+    return allBlogs.map((item) => ({
+        slug: item.slugAsParams.split("/"),
+    }))
+}
+
+
+
 // ---------- Create separate Blog page for each blog ----------
 export default async function BlogPage({ params }: BlogProps) {
     const blog = await getBlogFromParams(params)
@@ -40,25 +49,22 @@ export default async function BlogPage({ params }: BlogProps) {
     }
 
     return (
-        <>
+        <article className="py-6 prose dark:prose-invert max-w-7xl mx-auto px-5">
 
-            <article className="py-6 prose dark:prose-invert max-w-7xl mx-auto px-5">
+            {/* Blog title */}
+            <h1 className="mb-2 font-semibold text-3xl">{blog.title}</h1>
 
-                {/* Blog title */}
-                <h1 className="mb-2 font-semibold text-3xl">{blog.title}</h1>
+            {/* Blog description */}
+            {blog.description && (
+                <p className="text-xl mt-0 text-slate-700 dark:text-slate-200 mb-5">
+                    {blog.description}
+                </p>
+            )}
 
-                {/* Blog description */}
-                {blog.description && (
-                    <p className="text-xl mt-0 text-slate-700 dark:text-slate-200 mb-5">
-                        {blog.description}
-                    </p>
-                )}
+            <hr className="my-4" />
 
-                <hr className="my-4" />
-
-                {/* Blog content */}
-                <Mdx code={blog.body.code} />
-            </article>
-        </>
+            {/* Blog content */}
+            <Mdx code={blog.body.code} />
+        </article>
     )
 }
